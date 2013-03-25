@@ -2,23 +2,24 @@
 
 NODE_MODULES := ./node_modules/
 
-BEM := $(NODE_MODULES).bin/bem
+ENB := $(NODE_MODULES).bin/enb
 NPM := npm
 
 ifneq (,$(findstring B,$(MAKEFLAGS)))
-	BEM_FLAGS := --force
+	ENB_FLAGS := --no-cache
 endif
 
-all:: $(BEM) server
+all:: $(ENB) server
 
-%:: $(BEM)
-	$(if $(findstring GNUmakefile,$@),,$(BEM) make $@ $(BEM_FLAGS))
+%:: $(ENB)
+	$(if $(findstring GNUmakefile,$@),,$(ENB) make $@ $(ENB_FLAGS))
 
 .PHONY: server
-server:: $(BEM)
-	@$(BEM) server
+server:: $(ENB)
+	echo "Open http://127.0.0.1:8080/desktop.bundles/index/index.html to see build results."
+	@$(ENB) server
 
-$(BEM):: $(NODE_MODULES)
+$(ENB):: $(NODE_MODULES)
 
 $(NODE_MODULES)::
 	$(debug ---> Updating npm dependencies)
@@ -26,4 +27,4 @@ $(NODE_MODULES)::
 
 .PHONY: clean
 clean::
-	$(BEM) make -m clean
+	$(ENB) make clean

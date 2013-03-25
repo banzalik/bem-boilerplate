@@ -1,16 +1,16 @@
 {
   "author": "",
-  "name": "bem-project-stub",
+  "name": "enb-project-stub",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bem/project-stub.git"
+    "url": "git://github.com/mdevils/project-stub.git"
   },
   "engines": {
     "node": "0.6 | 0.7 | 0.8 | 0.9"
   },
   "dependencies": {
-    "bem" : "*"
+    "enb" : ">=0.6.8"
   },
   "devDependencies": {},
   "private": true
