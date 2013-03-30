@@ -8,15 +8,16 @@ module.exports = function(config) {
             new (require('enb/techs/levels'))({ levels: getLevels(config) }),
             new (require('enb/techs/deps-old'))(),
             new (require('enb/techs/files'))(),
+            new (require('./techs/html'))(),
+//            new (require('enb/techs/bemhtml'))(),
+//            new (require('enb/techs/html-from-bemjson'))(),
             new (require('enb/techs/js'))(),
             new (require('enb/techs/css'))(),
             new (require('enb/techs/css-ie'))(),
             new (require('enb/techs/css-ie6'))(),
             new (require('enb/techs/css-ie7'))(),
             new (require('enb/techs/css-ie8'))(),
-            new (require('enb/techs/css-ie9'))(),
-            new (require('enb/techs/bemhtml'))(),
-            new (require('enb/techs/html-from-bemjson'))()
+            new (require('enb/techs/css-ie9'))()
         ]);
         nodeConfig.addTargets([
             '?.html', '_?.js', '_?.css', '_?.ie.css', '_?.ie6.css', '_?.ie7.css', '_?.ie8.css', '_?.ie9.css'
@@ -53,9 +54,10 @@ module.exports = function(config) {
 
 function getLevels(config) {
     return [
+//        'bemhtml/common.blocks',
         'bem-bl/blocks-common',
         'bem-bl/blocks-desktop',
-        'bemhtml/common.blocks',
+        'bh/desktop.blocks',
         'common.blocks',
         'desktop.blocks'
     ].map(function(level) {
