@@ -1,6 +1,6 @@
 module.exports = function(bh) {
 
-    bh.match('b-page', function(ctx) {
+    bh.match('b-page:default', function(ctx) {
         return [
             { elem: 'doctype', doctype: ctx.doctype || '<!DOCTYPE HTML>' },
             {
@@ -33,13 +33,15 @@ module.exports = function(bh) {
                             ctx.head
                         ]
                     },
-                    {
-                        elem: 'body',
-                        content: ctx.content
-                    }
+                    ctx
                 ]
             }
         ];
+    });
+
+    bh.match('b-page', function(ctx) {
+        ctx.mix = [{elem: 'body'}];
+        ctx.tag = 'body';
     });
 
     bh.match('b-page__xUACompatible', function(ctx) {
@@ -62,11 +64,6 @@ module.exports = function(bh) {
 
     bh.match('b-page__meta', function(ctx) {
         ctx.tag = 'meta';
-        ctx.bem = false;
-    });
-
-    bh.match('b-page__body', function(ctx) {
-        ctx.tag = 'body';
         ctx.bem = false;
     });
 

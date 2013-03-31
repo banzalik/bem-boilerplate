@@ -43,7 +43,8 @@ var BH = module.exports = function() {
         var baseMatch = bemjson.block + (bemjson.elem ? '__' + bemjson.elem : ''),
             mods = bemjson.mods,
             matchExprList = [],
-            j, l;
+            matchers,
+            i, j, l, subRes, mix;
         for (i in mods) {
             if (mods.hasOwnProperty(i)) {
                 matchExprList.push(baseMatch + '_' + i + '_' + mods[i]);
@@ -54,13 +55,27 @@ var BH = module.exports = function() {
 
         bemjson.cls = bemjson.cls ? (Array.isArray(bemjson.cls) ? bemjson.cls : [bemjson.cls]) : [];
         bemjson.attrs = bemjson.attrs || {};
+        if (!bemjson.__processed) {
+            bemjson.__processed = true;
+            for (i = 0, l = matchExprList.length; i < l; i++) {
+                matchers = bemhtmlMatchers[matchExprList[i] + ':default'];
+                if (matchers) {
+                    for (j = matchers.length - 1; j >= 0; j--) {
+                        subRes = matchers[j](bemjson);
+                        if (subRes) {
+                            return processBemjson(subRes, blockName);
+                        }
+                    }
+                }
+            }
+        }
         for (i = 0, l = matchExprList.length; i < l; i++) {
-            var matchers = bemhtmlMatchers[matchExprList[i]], subRes;
+            matchers = bemhtmlMatchers[matchExprList[i]];
             if (matchers) {
                 for (j = matchers.length - 1; j >= 0; j--) {
                     subRes = matchers[j](bemjson);
                     if (subRes) {
-                        return matchBemjson(subRes, blockName);
+                        return processBemjson(subRes, blockName);
                     }
                 }
             }
@@ -100,7 +115,7 @@ function toHtml(json) {
     } else if (typeof json == 'string') {
         return json;
     } else {
-        var cls = json.bem !== false && json.block ? toFullBEMNames(json) : '',
+        var cls = json.bem !== false && json.block ? toBEMCssClasses(json, json.block) : '',
             jattr, attrs = [];
 
         if (jattr = json.attrs) {
@@ -131,19 +146,24 @@ function toHtml(json) {
     }
 }
 
-function toFullBEMNames(json, blockName) {
-    var mods, res, base = (json.block || blockName)
-        + (json.elem ? '__' + json.elem : '');
+function toBEMCssClasses(json, blockName) {
+    var mods, res, base = json.block || blockName
+        + (json.elem ? '__' + json.elem : ''), mix, i, l;
+    res = [];
     if (mods = json.mods) {
-        res = [];
-        for (var i in mods) {
+        for (i in mods) {
             if (mods.hasOwnProperty(i)) {
                 res.push(base + '_' + i + '_' + mods[i]);
             }
         }
-        return res.join(' ');
     } else {
-        return base;
+        res.push(base);
     }
+    if ((mix = json.mix) && (l = mix.length)) {
+        for (i = 0; i < l; i++) {
+            res.push(toBEMCssClasses(mix[i], blockName))
+        }
+    }
+    return res.join(' ');
 }
 module.exports = BH;
