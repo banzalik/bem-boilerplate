@@ -1,7 +1,7 @@
 module.exports = function(bh) {
 
     bh.match('b-page__css', function(ctx) {
-        ctx.tag = 'stype';
+        ctx.tag = 'style';
         ctx.bem = false;
 
         if (ctx.hasOwnProperty('ie') && !ctx._ieCommented) {
