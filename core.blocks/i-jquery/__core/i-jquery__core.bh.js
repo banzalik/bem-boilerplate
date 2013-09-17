@@ -4,7 +4,7 @@ module.exports = function(bh) {
         return {
             block: 'b-page',
             elem: 'js',
-            url: '//yandex.st/jquery/1.7.2/jquery.min.js'
+            url: '//yandex.st/jquery/2.0.3/jquery.min.js'
         };
     });
 
