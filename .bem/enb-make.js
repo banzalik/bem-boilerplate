@@ -8,7 +8,8 @@ module.exports = function(config) {
             new (require('enb/techs/levels'))({ levels: getLevels(config) }),
             new (require('enb/techs/deps-old'))(),
             new (require('enb/techs/files'))(),
-            new (require('./techs/html'))(),
+            new (require('bh/techs/bh-server'))(),
+            new (require('enb/techs/html-from-bemjson'))(),
             new (require('enb/techs/js'))(),
             new (require('enb/techs/css-stylus'))()
         ]);
