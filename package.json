@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mdevils/project-stub.git"
+    "url": "git://github.com/banzalik/enb-project-stub.git"
   },
   "engines": {
     "node": "0.6 | 0.7 | 0.8 | 0.9"

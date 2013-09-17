@@ -1,7 +1,7 @@
 module.exports = function(config) {
-    config.node('desktop.bundles/index');
+    config.node('desktop.pages/index');
 
-    config.nodeMask(/desktop\.bundles\/.*/, function(nodeConfig) {
+    config.nodeMask(/desktop\.pages\/.*/, function(nodeConfig) {
         nodeConfig.addTechs([
             new (require('enb/techs/file-provider'))({ target: '?.bemjson.js' }),
             new (require('enb/techs/bemdecl-from-bemjson'))(),
@@ -9,8 +9,6 @@ module.exports = function(config) {
             new (require('enb/techs/deps-old'))(),
             new (require('enb/techs/files'))(),
             new (require('./techs/html'))(),
-//            new (require('enb/techs/bemhtml'))(),
-//            new (require('enb/techs/html-from-bemjson'))(),
             new (require('enb/techs/js'))(),
             new (require('enb/techs/css'))(),
             new (require('enb/techs/css-ie'))(),
@@ -25,7 +23,7 @@ module.exports = function(config) {
     });
 
     config.mode('development', function() {
-        config.nodeMask(/desktop\.bundles\/.*/, function(nodeConfig) {
+        config.nodeMask(/desktop\.pages\/.*/, function(nodeConfig) {
             nodeConfig.addTechs([
                 new (require('enb/techs/file-copy'))({ sourceTarget: '?.js', destTarget: '_?.js' }),
                 new (require('enb/techs/file-copy'))({ sourceTarget: '?.css', destTarget: '_?.css' }),
@@ -38,7 +36,7 @@ module.exports = function(config) {
         });
     });
     config.mode('production', function() {
-        config.nodeMask(/desktop\.bundles\/.*/, function(nodeConfig) {
+        config.nodeMask(/desktop\.pages\/.*/, function(nodeConfig) {
             nodeConfig.addTechs([
                 new (require('enb/techs/borschik'))({ sourceTarget: '?.js', destTarget: '_?.js' }),
                 new (require('enb/techs/borschik'))({ sourceTarget: '?.css', destTarget: '_?.css' }),
@@ -54,12 +52,7 @@ module.exports = function(config) {
 
 function getLevels(config) {
     return [
-//        'bemhtml/common.blocks',
-        'bem-bl/blocks-common',
-        'bem-bl/blocks-desktop',
-        'bh/desktop.blocks',
-        'common.blocks',
-        'desktop.blocks'
+        'core.blocks'
     ].map(function(level) {
         return config.resolvePath(level);
     });

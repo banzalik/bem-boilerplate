@@ -1,4 +1,4 @@
-var BH = require('./lib/bh'),
+var BH = require('../libs/bh/lib/bh'),
     vm = require('vm');
 
 module.exports = require('enb/lib/build-flow').create()
