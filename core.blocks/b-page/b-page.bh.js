@@ -1,8 +1,8 @@
 module.exports = function(bh) {
 
-    bh.match('b-page:default', function(ctx) {
+    bh.match('b-page', function(ctx, json) {
         return [
-            { elem: 'doctype', doctype: ctx.doctype || '<!DOCTYPE HTML>' },
+            { elem: 'doctype', doctype: json.doctype || '<!DOCTYPE HTML>' },
             {
                 elem: 'html',
                 content: [
@@ -14,68 +14,69 @@ module.exports = function(bh) {
                                     tag: 'meta',
                                     attrs: { charset: 'utf-8' }
                                 },
-                                ctx['x-ua-compatible'] === false
+                                json['x-ua-compatible'] === false
                                     ? false
-                                    : { elem: 'xUACompatible', 'x-ua-compatible': ctx['x-ua-compatible'] },
+                                    : { elem: 'xUACompatible', 'x-ua-compatible': json['x-ua-compatible'] },
                                 {
                                     tag: 'title',
-                                    content: ctx.title
+                                    content: json.title
                                 },
-                                ctx.favicon ? {
+                                json.favicon ? {
                                     elem: 'favicon',
-                                    url: ctx.favicon
+                                    url: json.favicon
                                 } : '',
-                                ctx.meta,
+                                json.meta,
                                 {
                                     block: 'i-ua'
                                 }
                             ],
-                            ctx.head
+                            json.head
                         ]
                     },
-                    ctx
+                    json
                 ]
             }
         ];
     });
 
     bh.match('b-page', function(ctx) {
-        ctx.mix = [{elem: 'body'}];
-        ctx.tag = 'body';
+        ctx.mix([{elem: 'body'}]);
+        ctx.tag('body');
+        ctx.js(true);
     });
 
-    bh.match('b-page__xUACompatible', function(ctx) {
+    bh.match('b-page__xUACompatible', function(ctx, json) {
         return {
             tag: 'meta',
-            attrs: { 'http-equiv': 'X-UA-Compatible', content: ctx['x-ua-compatible'] || 'IE=EmulateIE7, IE=edge' }
+            attrs: { 'http-equiv': 'X-UA-Compatible', content: json['x-ua-compatible'] || 'IE=EmulateIE7, IE=edge' }
         };
     });
 
     bh.match('b-page__html', function(ctx) {
-        ctx.tag = 'html';
-        ctx.bem = false;
-        ctx.cls.push('i-ua_js_no i-ua_css_standard');
+        ctx.tag('html');
+        ctx.bem(false);
+        ctx.cls('i-ua_js_no i-ua_css_standard');
     });
 
     bh.match('b-page__head', function(ctx) {
-        ctx.tag = 'head';
-        ctx.bem = false;
+        ctx.tag('head');
+        ctx.bem(false);
     });
 
     bh.match('b-page__meta', function(ctx) {
-        ctx.tag = 'meta';
-        ctx.bem = false;
+        ctx.tag('meta');
+        ctx.bem(false);
     });
 
-    bh.match('b-page__doctype', function(ctx) {
-        return ctx.doctype;
+    bh.match('b-page__doctype', function(ctx, json) {
+        return json.doctype;
     });
 
-    bh.match('b-page__favicon', function(ctx) {
-        ctx.bem = false;
-        ctx.tag = 'link';
-        ctx.attrs.rel = 'shortcut icon';
-        ctx.attrs.href = ctx.url;
+    bh.match('b-page__favicon', function(ctx, json) {
+        ctx.bem(false);
+        ctx.tag('link');
+        ctx.attr('rel', 'shortcut icon');
+        ctx.attr('href', json.url);
     });
 
 };
