@@ -26,6 +26,7 @@ module.exports = function(config) {
             ]);
         });
     });
+
     config.mode('production', function() {
         config.nodeMask(/desktop\.pages\/.*/, function(nodeConfig) {
             nodeConfig.addTechs([
