@@ -1,10 +1,10 @@
 {
   "author": "Aleksandr Boichenko <banzalik@gmail.com>",
-  "name": "enb-project-stub",
-  "version": "0.0.1",
+  "name": "bem-boilerplate",
+  "version": "0.0.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/banzalik/enb-project-stub.git"
+    "url": "git://github.com/banzalik/bem-boilerplate.git"
   },
   "engines": {
     "node": "0.6 | 0.7 | 0.8 | 0.9"
