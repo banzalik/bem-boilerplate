@@ -1,7 +1,7 @@
 module.exports = function(config) {
-    config.node('desktop.pages/index');
+    config.node('pages-desktop/index');
 
-    config.nodeMask(/desktop\.pages\/.*/, function(nodeConfig) {
+    config.nodeMask(/pages\-desktop\/.*/, function(nodeConfig) {
         nodeConfig.addTechs([
             new (require('enb/techs/file-provider'))({ target: '?.bemjson.js' }),
             new (require('enb/techs/bemdecl-from-bemjson'))(),
@@ -19,7 +19,7 @@ module.exports = function(config) {
     });
 
     config.mode('development', function() {
-        config.nodeMask(/desktop\.pages\/.*/, function(nodeConfig) {
+        config.nodeMask(/pages\-desktop\/.*/, function(nodeConfig) {
             nodeConfig.addTechs([
                 new (require('enb/techs/file-copy'))({ sourceTarget: '?.js', destTarget: '_?.js' }),
                 new (require('enb/techs/file-copy'))({ sourceTarget: '?.css', destTarget: '_?.css' })
@@ -28,7 +28,7 @@ module.exports = function(config) {
     });
 
     config.mode('production', function() {
-        config.nodeMask(/desktop\.pages\/.*/, function(nodeConfig) {
+        config.nodeMask(/pages\-desktop\/.*/, function(nodeConfig) {
             nodeConfig.addTechs([
                 new (require('enb/techs/borschik'))({ sourceTarget: '?.js', destTarget: '_?.js' }),
                 new (require('enb/techs/borschik'))({ sourceTarget: '?.css', destTarget: '_?.css' })
@@ -39,7 +39,7 @@ module.exports = function(config) {
 
 function getLevels(config) {
     return [
-        'core.blocks'
+        'blocks-core'
     ].map(function(level) {
         return config.resolvePath(level);
     });

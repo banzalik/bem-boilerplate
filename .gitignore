@@ -4,5 +4,5 @@ node_modules
 .project
 .svn
 .bem/tmp
-*.pages/*/*.*
-!*.pages/*/*.bemjson.js
+pages-*/*/*.*
+!pages-*/*/*.bemjson.js

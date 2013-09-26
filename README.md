@@ -1,30 +1,55 @@
-# Minimal setup to start a new [BEM](http://bem.info) project
+# Заготовка для работы с BEM проектами
+---
+## Основная идея:
+Шаблон, позволябщий быстро начать разрабатываться с *полным* стеком [BEM](http://bem.info) .
 
-This repository contains the *minimal* configuration-files and folders you will need to create a [BEM](http://bem.info) project from *scratch*.
+###Внимание
+Данный шаблон настроен под меня и отражает мое видение и мои потребности от BEM проектов, если вы хотите использовать **правильный BEM стек** то необходимо использовать [project-stub](https://github.com/bem/project-stub).
 
 ---
+## Что уже есть:
+###Поддержка stylus, как препроцессора
+Можно писать код, как на чистом CSS, так и в .styl файлах.
 
-## Installation Requirements:
+###Иное (старое) именование папок
+ * Папки с блоками - `blocks-*`
+ * Папки со страницами - `pages-*`
+ Выбрано в пользу удобства восприятия и нормальной сортировки на файловой системе.
+ 
+###Шаблонизатор
+В качестве шаблонизации используется 2 технологии:
 
----
+ * `bemjson` - для описания вью оринетированного HTML
+ * [bh](https://github.com/enb-make/bh) - декларотивный шаблонизатор, позволяющий преобразовывать bemjson в HTML. Отличается тем, что имеет js синтакисис (будет правильная подсветка в редакторах). Умеет компилироваться как на клиенте так и на сервере (nodejs).
 
-## Installation:
+###Зависимости
+Для описания зависимостей, используется технология `deps.js`.
 
-So, how easy is it to get started with BEM?  *Super easy*.
+###Сборка
+Для сборки BEM проекта используется инструмент [enb](https://github.com/enb-make/enb).
 
-    It's as easy as...
-    
-    1 › git clone git://github.com/banzalik/enb-project-stub.git
-    2 › cd project-stub
-    3 › make
+###Установка и запуск
+Очень сырая (малофункциональная) beta.
 
-    (hint: execute the above commands in your terminal)
+```
+npm install
+make
+```
 
----
-
-
----
-
-[BEM](http://bem.info) is an abbreviation for Block-Element-Modifier.  [BEM](http://bem.info) is a way to write code which is easy to support and develop.
-
-For more information about the BEM metodology check out [http://bem.info](http://bem.info/).
+## Планы:
+* Добавить возможность использовать Grunt, как часть сборки.
+* Добавить возможность автогенерации спрайтов.
+* Добавить bootstrap, для быстрого протопипирования
+* Подключить csso / svgo /imgo.
+* Подключить *Lint
+* Экпорт проекта в структуру вида `*.html images/ js/ css/`
+* Возможность создавать общие и раздельные сборки
+* Возможность создавать responsive сайты
+* Один проект - много представлений (десткоп, мобайл, тач)
+* Поддержка LiveReload.
+* Работа как на сервере, так и на клиенте
+* Возможность использовать общий конфиг для JS / HTML / СSS
+* Генерация документации из JSDoc + CSSDoc + *.md
+* Тестирование JS
+* Тестирование CSS
+* Тестирование соответствия верски и дизайна
